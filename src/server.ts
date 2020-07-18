@@ -20,7 +20,7 @@ app.get('/v1/api/users', async (req, res) => {
         let { results } = await executeQuery('SELECT * FROM app_users');
         res.json({
             message: 'Success',
-            data: results
+            data: results[0]
         });
     } catch (error) {
         res.json({
