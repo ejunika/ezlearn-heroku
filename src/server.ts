@@ -2,9 +2,8 @@ import express from 'express';
 import { serve, setup } from 'swagger-ui-express';
 import { join } from 'path';
 import { load } from 'yamljs';
-import { createPool } from 'mysql';
 import cors from 'cors';
-import { has, get } from 'config';
+import { executeQuery } from './utils/mysql.util';
 
 const app = express();
 
@@ -16,37 +15,16 @@ app.use(cors());
 
 app.use('/api-docs', serve, setup(swaggerDocument));
 
-app.get('/v1/api/users', (req, res) => {
-    // let pool = createPool({
-    //     host: 'db4free.net',
-    //     database: 'test_mysql_009',
-    //     user: 'test_mysql_009',
-    //     password: 'test_mysql_009',
-    //     connectionLimit: 1000,
-    //     connectTimeout: 60 * 60 * 1000,
-    //     acquireTimeout: 60 * 60 * 1000,
-    //     timeout: 60 * 60 * 1000,
-    // });
-    // pool.query('SELECT * FROM app_users', (err, results) => {
-    //     if (err) {
-    //         res.json({
-    //             message: 'Failure',
-    //             error: err.message
-    //         })
-    //     } else {
-    //         res.json({
-    //             message: 'Success',
-    //             data: results
-    //         });
-    //     }
-    // });
-    res.json({
-        message: 'Success',
-        data: {
-            user_name: has('user') ? get('user') : 'Samuel',
-            password: 'Password'
-        }
-    });
+app.get('/v1/api/users', async (req, res) => {
+    try {
+        let { results } = await executeQuery('SELECT * FROM app_user');
+        res.json({
+            message: 'Success',
+            data: results
+        });
+    } catch (error) {
+
+    }
 });
 
 app.listen(PORT, () => {
