@@ -12,7 +12,7 @@ const app = express_1.default();
 const PORT = process.env.PORT || 5000;
 const swaggerDocument = yamljs_1.load(path_1.join(__dirname, './api.yaml'));
 app.use('/api-docs', swagger_ui_express_1.serve, swagger_ui_express_1.setup(swaggerDocument));
-app.get('/', (req, res) => {
+app.get('/api/users', (req, res) => {
     let pool = mysql_1.createPool({
         host: 'db4free.net',
         database: 'test_mysql_009',

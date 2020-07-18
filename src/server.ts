@@ -12,7 +12,7 @@ const swaggerDocument = load(join(__dirname, './api.yaml'));
 
 app.use('/api-docs', serve, setup(swaggerDocument));
 
-app.get('/', (req, res) => {
+app.get('/api/users', (req, res) => {
     let pool = createPool({
         host: 'db4free.net',
         database: 'test_mysql_009',
