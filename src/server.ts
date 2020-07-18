@@ -4,6 +4,7 @@ import { join } from 'path';
 import { load } from 'yamljs';
 import { createPool } from 'mysql';
 import cors from 'cors';
+import { has, get } from 'config';
 
 const app = express();
 
@@ -42,7 +43,7 @@ app.get('/v1/api/users', (req, res) => {
     res.json({
         message: 'Success',
         data: {
-            user_name: 'User Name',
+            user_name: has('user') ? get('user') : 'Samuel',
             password: 'Password'
         }
     });
