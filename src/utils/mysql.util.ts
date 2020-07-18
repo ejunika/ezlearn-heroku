@@ -1,20 +1,19 @@
 import { createPool, Pool, PoolConfig, MysqlError, PoolConnection, FieldInfo } from 'mysql';
 import { has, get } from 'config';
-import { DATABASES } from 'src/models/common.keys';
+import { DATABASE } from '../models/common.keys';
 
 let poolConfig: PoolConfig = getPoolConfig();
 
 const CONNECTION_POOL: Pool = createPool(poolConfig);
 
 function getPoolConfig(): PoolConfig {
-    let databases: any;
-    if (has(DATABASES)) {
-        databases = get(DATABASES);
-        let defaultDatabase = databases.find((database: any) => database.id === 'default' && database.server_type === 'mysql');
-        if (defaultDatabase && defaultDatabase.config) {
-            return defaultDatabase.config;
+    let database: any;
+    if (has(DATABASE)) {
+        database = get(DATABASE);
+        if (database) {
+            return database;
         } else {
-            throw new Error('NO_DEFAULT_DB_CONFIG_ERR');
+            throw new Error('NO_DB_CONFIG_ERR');
         }
     } else {
         throw new Error('NO_DB_CONFIG_ERR');

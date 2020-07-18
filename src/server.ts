@@ -17,13 +17,16 @@ app.use('/api-docs', serve, setup(swaggerDocument));
 
 app.get('/v1/api/users', async (req, res) => {
     try {
-        let { results } = await executeQuery('SELECT * FROM app_user');
+        let { results } = await executeQuery('SELECT * FROM app_users');
         res.json({
             message: 'Success',
             data: results
         });
     } catch (error) {
-
+        res.json({
+            message: 'Failure',
+            data: error.message
+        });
     }
 });
 

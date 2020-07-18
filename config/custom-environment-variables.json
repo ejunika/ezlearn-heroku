@@ -1,18 +1,12 @@
 {
-    "databases": [
-        {
-            "id": "default",
-            "server_type": "mysql",
-            "config": {
-                "host": "MYSQL_HOST",
-                "database": "MYSQL_DB",
-                "user": "MYSQL_USER",
-                "password": "MYSQL_PWD",
-                "connectionLimit": 1000,
-                "connectTimeout": 3600000,
-                "acquireTimeout": 3600000,
-                "timeout": 3600000
-            }
-        }
-    ]
+    "database": {
+        "host": "MYSQL_HOST",
+        "database": "MYSQL_DB",
+        "user": "MYSQL_USER",
+        "password": "MYSQL_PWD",
+        "connectionLimit": "MYSQL_CONNECTION_LIMIT",
+        "connectTimeout": "MYSQL_CONNECT_TIMEOUT",
+        "acquireTimeout": "MYSQL_ACQUIRE_TIMEOUT",
+        "timeout": "MYSQL_TIMEOUT"
+    }
 }
