@@ -15,7 +15,10 @@ app.get('/', (req, res) => {
     });
     pool.query('SELECT * FROM app_users', (err, results) => {
         if (err) {
-            throw err;
+            res.json({
+                message: 'Failure',
+                error: err.message
+            })
         }
         console.log(results);
         res.json({
