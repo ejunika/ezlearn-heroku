@@ -1,0 +1,19 @@
+{
+    "app_port": 5000,
+    "databases": [
+        {
+            "id": "default",
+            "server_type": "mysql",
+            "config": {
+                "host": "db4free.net",
+                "database": "test_mysql_009",
+                "user": "test_mysql_009",
+                "password": "test_mysql_009",
+                "connectionLimit": 1000,
+                "connectTimeout": 3600000,
+                "acquireTimeout": 3600000,
+                "timeout": 3600000
+            }
+        }
+    ]
+}

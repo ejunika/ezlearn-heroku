@@ -1,13 +1,19 @@
-const express = require('express');
-
-const mysql = require('mysql');
+import express from 'express';
+import { serve, setup } from 'swagger-ui-express';
+import { join } from 'path';
+import { load } from 'yamljs';
+import { createPool } from 'mysql';
 
 const app = express();
 
 const PORT = process.env.PORT || 5000;
 
+const swaggerDocument = load(join(__dirname, './api.yaml'));
+
+app.use('/api-docs', serve, setup(swaggerDocument));
+
 app.get('/', (req, res) => {
-    let pool = mysql.createPool({
+    let pool = createPool({
         host: 'db4free.net',
         database: 'test_mysql_009',
         user: 'test_mysql_009',
@@ -34,4 +40,4 @@ app.get('/', (req, res) => {
 
 app.listen(PORT, () => {
     console.log(`Server is listening at port ${PORT}`);
-})
+});
