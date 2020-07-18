@@ -11,7 +11,11 @@ app.get('/', (req, res) => {
         host: 'db4free.net',
         database: 'test_mysql_009',
         user: 'test_mysql_009',
-        password: 'test_mysql_009'
+        password: 'test_mysql_009',
+        connectionLimit: 1000,
+        connectTimeout: 60 * 60 * 1000,
+        acquireTimeout: 60 * 60 * 1000,
+        timeout: 60 * 60 * 1000,
     });
     pool.query('SELECT * FROM app_users', (err, results) => {
         if (err) {
@@ -19,12 +23,12 @@ app.get('/', (req, res) => {
                 message: 'Failure',
                 error: err.message
             })
+        } else {
+            res.json({
+                message: 'Success',
+                data: results
+            });
         }
-        console.log(results);
-        res.json({
-            message: 'Success',
-            data: results
-        });
     });
 });
 
